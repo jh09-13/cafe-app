@@ -1,0 +1,94 @@
+:root {
+  /* ===== 브랜드 색상 ===== */
+  --color-primary:        #5C3D2E;
+  --color-primary-light:  #8B6914;
+  --color-primary-dark:   #3E2723;
+  --color-secondary:      #D7CCC8;
+  --color-accent:         #FFAB40;
+
+  /* ===== 배경 ===== */
+  --bg-page:        #FAF6F1;
+  --bg-card:        rgba(255, 255, 255, 0.7);
+  --bg-card-hover:  rgba(255, 255, 255, 0.95);
+  --bg-overlay:     rgba(0, 0, 0, 0.3);
+
+  /* ===== 텍스트 ===== */
+  --text-primary:   #3E2723;
+  --text-secondary: #795548;
+  --text-muted:     #A1887F;
+  --text-on-primary: #FFFFFF;
+
+  /* ===== 보더 ===== */
+  --border-color:   #D7CCC8;
+  --border-radius:  12px;
+  --border-radius-sm: 8px;
+
+  /* ===== 간격 (8pt 그리드) ===== */
+  --sp-xs:   4px;
+  --sp-sm:   8px;
+  --sp-md:   16px;
+  --sp-lg:   24px;
+  --sp-xl:   32px;
+  --sp-2xl:  48px;
+  --sp-3xl:  64px;
+
+  /* ===== 폰트 ===== */
+  --font-heading: 'Noto Sans KR', sans-serif;
+  --font-body:    'Noto Sans KR', sans-serif;
+  --font-size-xs:   12px;
+  --font-size-sm:   14px;
+  --font-size-base: 16px;
+  --font-size-lg:   18px;
+  --font-size-xl:   24px;
+  --font-size-2xl:  32px;
+  --font-size-3xl:  40px;
+
+  /* ===== 그림자 ===== */
+  --shadow-sm:  0 2px 4px rgba(0,0,0,0.06);
+  --shadow-md:  0 4px 12px rgba(0,0,0,0.1);
+  --shadow-lg:  0 8px 24px rgba(0,0,0,0.12);
+
+  /* ===== 글래스 모피즘 ===== */
+  --glass-bg:       rgba(255, 255, 255, 0.45);
+  --glass-border:   rgba(255, 255, 255, 0.6);
+  --glass-blur:     blur(12px);
+}
+
+/* ===== 리셋 ===== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  background: var(--bg-page);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+}
