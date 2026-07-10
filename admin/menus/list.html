@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>메뉴 관리 · 카페 관리자</title>
+<link rel="stylesheet" href="../../css/variables.css">
+<link rel="stylesheet" href="list.css">
+</head>
+<body>
+  <header class="admin-header">
+    <h1>☕ 카페 관리자</h1>
+    <nav>
+      <a href="list.html" class="active">메뉴 관리</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <div class="page-head">
+      <h2>메뉴 목록</h2>
+      <div class="page-head-actions">
+        <button id="btn-reset" class="btn btn-ghost">기본값으로 초기화</button>
+        <a href="create.html" class="btn btn-primary">+ 메뉴 추가</a>
+      </div>
+    </div>
+
+    <div id="cat-filter-tabs" class="tabs"></div>
+
+    <table class="menu-table">
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>카테고리</th>
+          <th>가격</th>
+          <th>설명</th>
+          <th class="col-actions">관리</th>
+        </tr>
+      </thead>
+      <tbody id="menu-table-body"></tbody>
+    </table>
+
+    <p id="empty-state" class="empty-state" hidden>등록된 메뉴가 없습니다.</p>
+  </main>
+
+  <script src="../../js/data.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="list.js"></script>
+</body>
+</html>

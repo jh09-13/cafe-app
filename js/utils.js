@@ -99,6 +99,55 @@ function clearCart() {
 }
 
 // ============================================
+// 메뉴 저장 (localStorage, MENU_ITEMS를 초기값으로 시드)
+// ============================================
+
+const MENUS_KEY = 'cafe_menus';
+
+function getMenus() {
+  const data = localStorage.getItem(MENUS_KEY);
+  if (data) return JSON.parse(data);
+  saveMenus(MENU_ITEMS);
+  return [...MENU_ITEMS];
+}
+
+function saveMenus(menus) {
+  localStorage.setItem(MENUS_KEY, JSON.stringify(menus));
+}
+
+function getMenuById(id) {
+  return getMenus().find(m => String(m.id) === String(id));
+}
+
+function addMenu(menu) {
+  const menus = getMenus();
+  const newMenu = { id: generateId(), ...menu };
+  menus.push(newMenu);
+  saveMenus(menus);
+  return newMenu;
+}
+
+function updateMenu(id, changes) {
+  const menus = getMenus();
+  const menu = menus.find(m => String(m.id) === String(id));
+  if (menu) {
+    Object.assign(menu, changes);
+    saveMenus(menus);
+  }
+  return menu;
+}
+
+function removeMenu(id) {
+  const menus = getMenus().filter(m => String(m.id) !== String(id));
+  saveMenus(menus);
+}
+
+function resetMenus() {
+  saveMenus(MENU_ITEMS);
+  return [...MENU_ITEMS];
+}
+
+// ============================================
 // 주문 저장 (localStorage)
 // ============================================
 
