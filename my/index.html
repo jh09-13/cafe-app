@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>마이페이지 · 카페</title>
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">☕ 카페</a>
+    <nav>
+      <a href="../menus/list.html">메뉴</a>
+      <a href="index.html" class="active">마이페이지</a>
+      <a href="../orders/list.html">주문내역</a>
+      <a href="../basket/list.html" class="cart-link">🛒 <span id="cart-count" class="cart-badge">0</span></a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <h2>마이페이지</h2>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">총 주문 수</span>
+        <span id="stat-orders" class="stat-value">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">총 결제금액</span>
+        <span id="stat-spent" class="stat-value">0원</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <h3>최근 주문</h3>
+        <a class="link-more" href="../orders/list.html">전체보기 →</a>
+      </div>
+      <div id="recent-orders" class="orders-list"></div>
+      <p id="empty-state" class="empty-state" hidden>주문 내역이 없습니다.</p>
+    </div>
+  </main>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>

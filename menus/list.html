@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>메뉴 · 카페</title>
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="list.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">☕ 카페</a>
+    <nav>
+      <a href="list.html" class="active">메뉴</a>
+      <a href="../my/index.html">마이페이지</a>
+      <a href="../orders/list.html">주문내역</a>
+      <a href="../basket/list.html" class="cart-link">🛒 <span id="cart-count" class="cart-badge">0</span></a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <h2>메뉴</h2>
+
+    <div id="cat-filter-tabs" class="tabs"></div>
+
+    <div id="menu-grid" class="menu-grid"></div>
+
+    <p id="empty-state" class="empty-state" hidden>등록된 메뉴가 없습니다.</p>
+  </main>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="list.js"></script>
+</body>
+</html>

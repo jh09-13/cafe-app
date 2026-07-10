@@ -18,6 +18,12 @@ function getCategoryName(id) {
   return cat ? cat.name : id;
 }
 
+// ---- 카테고리 이모지 ----
+function getCategoryEmoji(id) {
+  const cat = CATEGORIES.find(c => c.id === id);
+  return cat ? cat.emoji : '☕';
+}
+
 // ---- 상태 라벨 ----
 function getStatusLabel(value) {
   const status = Object.values(ORDER_STATUS).find(s => s.value === value);
@@ -52,10 +58,10 @@ function saveCart(cart) {
 
 function addToCart(menuId, quantity = 1) {
   const cart = getCart();
-  const item = MENU_ITEMS.find(m => m.id === menuId);
+  const item = getMenus().find(m => String(m.id) === String(menuId));
   if (!item) return;
 
-  const existing = cart.find(c => c.menuId === menuId);
+  const existing = cart.find(c => String(c.menuId) === String(menuId));
   if (existing) {
     existing.quantity += quantity;
   } else {
@@ -72,13 +78,13 @@ function addToCart(menuId, quantity = 1) {
 
 function removeFromCart(menuId) {
   let cart = getCart();
-  cart = cart.filter(c => c.menuId !== menuId);
+  cart = cart.filter(c => String(c.menuId) !== String(menuId));
   saveCart(cart);
 }
 
 function updateCartQuantity(menuId, quantity) {
   const cart = getCart();
-  const item = cart.find(c => c.menuId === menuId);
+  const item = cart.find(c => String(c.menuId) === String(menuId));
   if (item) {
     if (quantity <= 0) {
       removeFromCart(menuId);

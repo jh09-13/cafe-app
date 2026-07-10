@@ -3,10 +3,10 @@
 // ============================================
 
 const CATEGORIES = [
-  { id: 'coffee', name: '커피' },
-  { id: 'tea', name: '차' },
-  { id: 'bakery', name: '베이커리' },
-  { id: 'dessert', name: '디저트' }
+  { id: 'coffee', name: '커피', emoji: '☕' },
+  { id: 'tea', name: '차', emoji: '🍵' },
+  { id: 'bakery', name: '베이커리', emoji: '🥐' },
+  { id: 'dessert', name: '디저트', emoji: '🍰' }
 ];
 
 const MENU_ITEMS = [

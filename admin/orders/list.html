@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>주문 관리 · 카페 관리자</title>
+<link rel="stylesheet" href="../../css/variables.css">
+<link rel="stylesheet" href="list.css">
+</head>
+<body>
+  <header class="admin-header">
+    <h1>☕ 카페 관리자</h1>
+    <nav>
+      <a href="../index.html">대시보드</a>
+      <a href="../menus/list.html">메뉴 관리</a>
+      <a href="list.html" class="active">주문 관리</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <div class="page-head">
+      <h2>주문 목록</h2>
+    </div>
+
+    <div id="status-filter-tabs" class="tabs"></div>
+
+    <table class="order-table">
+      <thead>
+        <tr>
+          <th>일시</th>
+          <th>메뉴</th>
+          <th>금액</th>
+          <th>상태</th>
+          <th class="col-actions">관리</th>
+        </tr>
+      </thead>
+      <tbody id="order-table-body"></tbody>
+    </table>
+
+    <p id="empty-state" class="empty-state" hidden>주문 내역이 없습니다.</p>
+  </main>
+
+  <script src="../../js/data.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="list.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>장바구니 · 카페</title>
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="list.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">☕ 카페</a>
+    <nav>
+      <a href="../menus/list.html">메뉴</a>
+      <a href="../my/index.html">마이페이지</a>
+      <a href="../orders/list.html">주문내역</a>
+      <a href="list.html" class="cart-link active">🛒 <span id="cart-count" class="cart-badge">0</span></a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <h2>장바구니</h2>
+
+    <div id="cart-list" class="cart-list"></div>
+
+    <div id="summary" class="summary" hidden>
+      <div class="summary-row">
+        <span>총 결제금액</span>
+        <span id="total-price">0원</span>
+      </div>
+      <button id="btn-checkout" class="btn btn-primary btn-checkout">주문하기</button>
+    </div>
+
+    <p id="empty-state" class="empty-state" hidden>장바구니가 비어있습니다.</p>
+  </main>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="list.js"></script>
+</body>
+</html>
