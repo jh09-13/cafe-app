@@ -16,7 +16,9 @@ function renderGrid() {
   renderList(grid, menus, (m) => `
     <div class="menu-card">
       <a class="menu-card-link" href="detail.html?id=${m.id}">
-        <div class="menu-card-image">${getCategoryEmoji(m.category)}</div>
+        <div class="menu-card-image" style="background-image:url('${getCategoryImage(m.category)}')">
+          <span class="emoji-badge">${getCategoryEmoji(m.category)}</span>
+        </div>
         <div class="menu-card-body">
           <h3>${m.name}</h3>
           <p class="menu-card-desc">${m.description || ''}</p>

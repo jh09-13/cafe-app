@@ -13,7 +13,9 @@ if (!menu) {
   $('#not-found').hidden = false;
 } else {
   $('#menu-detail').innerHTML = `
-    <div class="detail-image">${getCategoryEmoji(menu.category)}</div>
+    <div class="detail-image" style="background-image:url('${getCategoryImage(menu.category)}')">
+      <span class="emoji-badge">${getCategoryEmoji(menu.category)}</span>
+    </div>
     <div class="detail-info">
       <span class="detail-category">${getCategoryName(menu.category)}</span>
       <h2>${menu.name}</h2>

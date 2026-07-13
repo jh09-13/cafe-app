@@ -3,10 +3,10 @@
 // ============================================
 
 const CATEGORIES = [
-  { id: 'coffee', name: '커피', emoji: '☕' },
-  { id: 'tea', name: '차', emoji: '🍵' },
-  { id: 'bakery', name: '베이커리', emoji: '🥐' },
-  { id: 'dessert', name: '디저트', emoji: '🍰' }
+  { id: 'coffee', name: '커피', emoji: '☕', image: 'https://images.unsplash.com/photo-1534687941688-651ccaafbff8?auto=format&fit=crop&w=800&q=80' },
+  { id: 'tea', name: '차', emoji: '🍵', image: 'https://images.unsplash.com/photo-1498604636225-6b87a314baa0?auto=format&fit=crop&w=800&q=80' },
+  { id: 'bakery', name: '베이커리', emoji: '🥐', image: 'https://images.unsplash.com/photo-1623334044303-241021148842?auto=format&fit=crop&w=800&q=80' },
+  { id: 'dessert', name: '디저트', emoji: '🍰', image: 'https://images.unsplash.com/photo-1505804750389-62ac45da38b7?auto=format&fit=crop&w=800&q=80' }
 ];
 
 const MENU_ITEMS = [

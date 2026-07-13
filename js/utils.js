@@ -24,6 +24,12 @@ function getCategoryEmoji(id) {
   return cat ? cat.emoji : '☕';
 }
 
+// ---- 카테고리 대표 이미지 ----
+function getCategoryImage(id) {
+  const cat = CATEGORIES.find(c => c.id === id);
+  return cat ? cat.image : '';
+}
+
 // ---- 상태 라벨 ----
 function getStatusLabel(value) {
   const status = Object.values(ORDER_STATUS).find(s => s.value === value);

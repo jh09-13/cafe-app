@@ -121,12 +121,25 @@
 }
 
 .menu-card-image {
+  position: relative;
+  height: 120px;
+  background-size: cover;
+  background-position: center;
+}
+
+.emoji-badge {
+  position: absolute;
+  top: var(--sp-xs);
+  left: var(--sp-xs);
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 120px;
-  font-size: 48px;
-  background: var(--bg-card-hover);
+  font-size: 18px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
 }
 
 .menu-card-body {
