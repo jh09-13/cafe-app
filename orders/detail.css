@@ -113,6 +113,68 @@
   color: var(--text-primary);
 }
 
+.pickup-code {
+  text-align: center;
+  background: var(--color-primary-dark);
+  border-radius: var(--border-radius);
+  padding: var(--sp-lg);
+  margin-bottom: var(--sp-lg);
+}
+
+.pickup-code-label {
+  color: var(--color-accent);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  margin-bottom: var(--sp-sm);
+}
+
+.pickup-code-value {
+  font-family: 'Courier New', monospace;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: #fff;
+  margin-bottom: var(--sp-md);
+}
+
+.pickup-barcode {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 2px;
+  height: 48px;
+  margin: 0 auto var(--sp-sm);
+  max-width: 320px;
+}
+
+.barcode-bar {
+  background: #fff;
+  border-radius: 1px;
+}
+
+.barcode-bar.faint {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.pickup-code-timer {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: var(--sp-sm);
+}
+
+.pickup-code-timer-bar {
+  height: 100%;
+  background: var(--color-accent);
+  width: 0%;
+}
+
+.pickup-code-hint {
+  font-size: var(--font-size-xs);
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .order-items {
   list-style: none;
   margin-bottom: var(--sp-lg);

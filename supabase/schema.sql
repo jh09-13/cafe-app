@@ -53,7 +53,8 @@ create table if not exists public.orders (
   total integer not null,
   status text not null default 'pending',
   created_at timestamptz default now(),
-  completed_at timestamptz
+  completed_at timestamptz,
+  pickup_code_secret text not null default encode(gen_random_bytes(8), 'hex')
 );
 
 alter table public.orders enable row level security;

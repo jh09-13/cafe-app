@@ -159,8 +159,22 @@ function mapOrder(row) {
     total: row.total,
     status: row.status,
     createdAt: row.created_at,
-    completedAt: row.completed_at
+    completedAt: row.completed_at,
+    pickupSecret: row.pickup_code_secret
   };
+}
+
+// ---- 픽업 확인용 다이내믹 코드 ----
+// 주문별 비밀값 + 현재 시간 구간으로 계산되는 6자리 코드. 매 windowSeconds마다 바뀌므로
+// 화면을 캡처해두고 나중에 제시해도 시간이 지나면 무효가 된다.
+function getRotatingPickupCode(secret, windowSeconds = 5) {
+  const timeWindow = Math.floor(Date.now() / 1000 / windowSeconds);
+  const input = `${secret}:${timeWindow}`;
+  let hash = 0;
+  for (let i = 0; i < input.length; i++) {
+    hash = (hash * 31 + input.charCodeAt(i)) >>> 0;
+  }
+  return String(hash % 1000000).padStart(6, '0');
 }
 
 async function getOrders() {
