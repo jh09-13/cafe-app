@@ -1,10 +1,13 @@
-const menuId = new URLSearchParams(location.search).get('id');
-const menu = menuId ? getMenuById(menuId) : null;
+async function init() {
+  const menuId = new URLSearchParams(location.search).get('id');
+  const menu = menuId ? await getMenuById(menuId) : null;
 
-if (!menu) {
-  $('#menu-detail').hidden = true;
-  $('#not-found').hidden = false;
-} else {
+  if (!menu) {
+    $('#menu-detail').hidden = true;
+    $('#not-found').hidden = false;
+    return;
+  }
+
   $('#menu-detail').innerHTML = `
     <h2>${menu.name}</h2>
     <div class="detail-row"><span class="label">카테고리</span><span>${getCategoryName(menu.category)}</span></div>
@@ -16,10 +19,12 @@ if (!menu) {
     </div>
   `;
 
-  $('#btn-delete').addEventListener('click', () => {
+  $('#btn-delete').addEventListener('click', async () => {
     if (confirm('이 메뉴를 삭제할까요?')) {
-      removeMenu(menu.id);
+      await removeMenu(menu.id);
       location.href = 'list.html';
     }
   });
 }
+
+init();

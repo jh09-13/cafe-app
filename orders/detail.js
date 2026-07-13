@@ -3,15 +3,18 @@ function updateCartBadge() {
   $('#cart-count').textContent = count;
 }
 
-const orderId = new URLSearchParams(location.search).get('id');
-const order = orderId ? getOrderById(orderId) : null;
+async function init() {
+  const orderId = new URLSearchParams(location.search).get('id');
+  const order = orderId ? await getOrderById(orderId) : null;
 
-updateCartBadge();
+  updateCartBadge();
 
-if (!order) {
-  $('#order-detail').hidden = true;
-  $('#not-found').hidden = false;
-} else {
+  if (!order) {
+    $('#order-detail').hidden = true;
+    $('#not-found').hidden = false;
+    return;
+  }
+
   $('#order-detail').innerHTML = `
     <div class="order-head">
       <span class="status-badge status-${order.status}">${getStatusLabel(order.status)}</span>
@@ -33,3 +36,5 @@ if (!order) {
     </div>
   `;
 }
+
+init();

@@ -1,6 +1,6 @@
-function render() {
-  const menus = getMenus();
-  const orders = getOrders();
+async function render() {
+  const menus = await getMenus();
+  const orders = await getOrders();
   const pending = orders.filter(o => o.status === ORDER_STATUS.PENDING.value).length;
   const revenue = orders
     .filter(o => o.status !== ORDER_STATUS.CANCELLED.value)

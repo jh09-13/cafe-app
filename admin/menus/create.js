@@ -1,9 +1,9 @@
 renderList($('#f-category'), CATEGORIES, (cat) => `<option value="${cat.id}">${cat.name}</option>`);
 
-$('#menu-form').addEventListener('submit', (e) => {
+$('#menu-form').addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  addMenu({
+  await addMenu({
     name: $('#f-name').value.trim(),
     category: $('#f-category').value,
     price: Number($('#f-price').value),

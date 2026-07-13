@@ -12,8 +12,9 @@ function renderCategories() {
   `);
 }
 
-function renderFeatured() {
-  const items = getMenus().slice(0, 4);
+async function renderFeatured() {
+  const menus = await getMenus();
+  const items = menus.slice(0, 4);
   renderList($('#featured-grid'), items, (m) => `
     <a class="menu-card" href="menus/detail?id=${m.id}">
       <div class="menu-card-image" style="background-image:url('${getCategoryImage(m.category)}')">

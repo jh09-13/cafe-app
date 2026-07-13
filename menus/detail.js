@@ -3,15 +3,18 @@ function updateCartBadge() {
   $('#cart-count').textContent = count;
 }
 
-const menuId = new URLSearchParams(location.search).get('id');
-const menu = menuId ? getMenuById(menuId) : null;
+async function init() {
+  const menuId = new URLSearchParams(location.search).get('id');
+  const menu = menuId ? await getMenuById(menuId) : null;
 
-updateCartBadge();
+  updateCartBadge();
 
-if (!menu) {
-  $('#menu-detail').hidden = true;
-  $('#not-found').hidden = false;
-} else {
+  if (!menu) {
+    $('#menu-detail').hidden = true;
+    $('#not-found').hidden = false;
+    return;
+  }
+
   $('#menu-detail').innerHTML = `
     <div class="detail-image" style="background-image:url('${getCategoryImage(menu.category)}')">
       <span class="emoji-badge">${getCategoryEmoji(menu.category)}</span>
@@ -45,9 +48,11 @@ if (!menu) {
     qtyValue.textContent = qty;
   });
 
-  $('#btn-add').addEventListener('click', () => {
-    addToCart(menu.id, qty);
+  $('#btn-add').addEventListener('click', async () => {
+    await addToCart(menu.id, qty);
     updateCartBadge();
     alert(`${menu.name} ${qty}개를 장바구니에 담았습니다.`);
   });
 }
+
+init();

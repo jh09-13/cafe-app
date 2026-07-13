@@ -1,21 +1,24 @@
-const menuId = new URLSearchParams(location.search).get('id');
-const menu = menuId ? getMenuById(menuId) : null;
+async function init() {
+  const menuId = new URLSearchParams(location.search).get('id');
+  const menu = menuId ? await getMenuById(menuId) : null;
 
-renderList($('#f-category'), CATEGORIES, (cat) => `<option value="${cat.id}">${cat.name}</option>`);
+  renderList($('#f-category'), CATEGORIES, (cat) => `<option value="${cat.id}">${cat.name}</option>`);
 
-if (!menu) {
-  $('#not-found').hidden = false;
-} else {
+  if (!menu) {
+    $('#not-found').hidden = false;
+    return;
+  }
+
   $('#menu-form').hidden = false;
   $('#f-name').value = menu.name;
   $('#f-category').value = menu.category;
   $('#f-price').value = menu.price;
   $('#f-description').value = menu.description || '';
 
-  $('#menu-form').addEventListener('submit', (e) => {
+  $('#menu-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    updateMenu(menu.id, {
+    await updateMenu(menu.id, {
       name: $('#f-name').value.trim(),
       category: $('#f-category').value,
       price: Number($('#f-price').value),
@@ -25,3 +28,5 @@ if (!menu) {
     location.href = `detail?id=${menu.id}`;
   });
 }
+
+init();

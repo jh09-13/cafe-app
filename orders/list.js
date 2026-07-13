@@ -3,8 +3,9 @@ function updateCartBadge() {
   $('#cart-count').textContent = count;
 }
 
-function render() {
-  const orders = getOrders().slice().reverse();
+async function render() {
+  const all = await getMyOrders();
+  const orders = all.slice().reverse();
   const listEl = $('#orders-list');
   const emptyState = $('#empty-state');
 

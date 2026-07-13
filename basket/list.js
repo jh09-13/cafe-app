@@ -60,11 +60,11 @@ $('#cart-list').addEventListener('click', (e) => {
   render();
 });
 
-$('#btn-checkout').addEventListener('click', () => {
+$('#btn-checkout').addEventListener('click', async () => {
   const cart = getCart();
   if (cart.length === 0) return;
 
-  const order = createOrder(cart, getCartTotal());
+  const order = await createOrder(cart, getCartTotal());
   clearCart();
   location.href = `../orders/detail?id=${order.id}`;
 });

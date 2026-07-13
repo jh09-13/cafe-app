@@ -3,8 +3,8 @@ function updateCartBadge() {
   $('#cart-count').textContent = count;
 }
 
-function render() {
-  const orders = getOrders();
+async function render() {
+  const orders = await getMyOrders();
 
   $('#stat-orders').textContent = orders.length;
   $('#stat-spent').textContent = formatPrice(orders.reduce((sum, o) => sum + o.total, 0));

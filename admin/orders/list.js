@@ -7,8 +7,9 @@ function renderTabs() {
   `);
 }
 
-function renderTable() {
-  const orders = getOrders().slice().reverse()
+async function renderTable() {
+  const all = await getOrders();
+  const orders = all.slice().reverse()
     .filter(o => currentStatus === 'all' || o.status === currentStatus);
   const body = $('#order-table-body');
   const emptyState = $('#empty-state');
@@ -26,9 +27,9 @@ function renderTable() {
   emptyState.hidden = orders.length > 0;
 }
 
-function render() {
+async function render() {
   renderTabs();
-  renderTable();
+  await renderTable();
 }
 
 $('#status-filter-tabs').addEventListener('click', (e) => {

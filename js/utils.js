@@ -7,11 +7,6 @@ function formatPrice(price) {
   return price.toLocaleString('ko-KR') + '원';
 }
 
-// ---- 데이터 ID 생성 ----
-function generateId() {
-  return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
-}
-
 // ---- 카테고리 이름 ----
 function getCategoryName(id) {
   const cat = CATEGORIES.find(c => c.id === id);
@@ -62,9 +57,10 @@ function saveCart(cart) {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
 }
 
-function addToCart(menuId, quantity = 1) {
+async function addToCart(menuId, quantity = 1) {
   const cart = getCart();
-  const item = getMenus().find(m => String(m.id) === String(menuId));
+  const menus = await getMenus();
+  const item = menus.find(m => String(m.id) === String(menuId));
   if (!item) return;
 
   const existing = cart.find(c => String(c.menuId) === String(menuId));
@@ -111,99 +107,99 @@ function clearCart() {
 }
 
 // ============================================
-// 메뉴 저장 (localStorage, MENU_ITEMS를 초기값으로 시드)
+// 메뉴 (Supabase, MENU_ITEMS를 초기 시드로 사용)
 // ============================================
 
-const MENUS_KEY = 'cafe_menus';
-
-function getMenus() {
-  const data = localStorage.getItem(MENUS_KEY);
-  if (data) return JSON.parse(data);
-  saveMenus(MENU_ITEMS);
-  return [...MENU_ITEMS];
+async function getMenus() {
+  const { data, error } = await sb.from('menus').select('*').order('id');
+  if (error) { console.error(error); return []; }
+  return data;
 }
 
-function saveMenus(menus) {
-  localStorage.setItem(MENUS_KEY, JSON.stringify(menus));
+async function getMenuById(id) {
+  const { data, error } = await sb.from('menus').select('*').eq('id', id).maybeSingle();
+  if (error) { console.error(error); return null; }
+  return data;
 }
 
-function getMenuById(id) {
-  return getMenus().find(m => String(m.id) === String(id));
+async function addMenu(menu) {
+  const { data, error } = await sb.from('menus').insert(menu).select().single();
+  if (error) { console.error(error); return null; }
+  return data;
 }
 
-function addMenu(menu) {
-  const menus = getMenus();
-  const newMenu = { id: generateId(), ...menu };
-  menus.push(newMenu);
-  saveMenus(menus);
-  return newMenu;
+async function updateMenu(id, changes) {
+  const { data, error } = await sb.from('menus').update(changes).eq('id', id).select().maybeSingle();
+  if (error) { console.error(error); return null; }
+  return data;
 }
 
-function updateMenu(id, changes) {
-  const menus = getMenus();
-  const menu = menus.find(m => String(m.id) === String(id));
-  if (menu) {
-    Object.assign(menu, changes);
-    saveMenus(menus);
-  }
-  return menu;
+async function removeMenu(id) {
+  const { error } = await sb.from('menus').delete().eq('id', id);
+  if (error) console.error(error);
 }
 
-function removeMenu(id) {
-  const menus = getMenus().filter(m => String(m.id) !== String(id));
-  saveMenus(menus);
-}
-
-function resetMenus() {
-  saveMenus(MENU_ITEMS);
-  return [...MENU_ITEMS];
+async function resetMenus() {
+  await sb.from('menus').delete().gte('id', 0);
+  const seed = MENU_ITEMS.map(({ id, ...rest }) => rest);
+  const { data, error } = await sb.from('menus').insert(seed).select();
+  if (error) { console.error(error); return []; }
+  return data;
 }
 
 // ============================================
-// 주문 저장 (localStorage)
+// 주문 (Supabase, 익명 세션ID로 소유자 구분)
 // ============================================
 
-const ORDERS_KEY = 'cafe_orders';
-
-function getOrders() {
-  const data = localStorage.getItem(ORDERS_KEY);
-  return data ? JSON.parse(data) : [];
+function mapOrder(row) {
+  if (!row) return null;
+  return {
+    id: row.id,
+    items: row.items,
+    total: row.total,
+    status: row.status,
+    createdAt: row.created_at,
+    completedAt: row.completed_at
+  };
 }
 
-function saveOrders(orders) {
-  localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
+async function getOrders() {
+  const { data, error } = await sb.from('orders').select('*').order('created_at');
+  if (error) { console.error(error); return []; }
+  return data.map(mapOrder);
 }
 
-function createOrder(items, total) {
-  const orders = getOrders();
-  const order = {
-    id: generateId(),
+async function getMyOrders() {
+  const { data, error } = await sb.from('orders').select('*').eq('session_id', getSessionId()).order('created_at');
+  if (error) { console.error(error); return []; }
+  return data.map(mapOrder);
+}
+
+async function createOrder(items, total) {
+  const { data, error } = await sb.from('orders').insert({
+    session_id: getSessionId(),
     items,
     total,
-    status: ORDER_STATUS.PENDING.value,
-    createdAt: new Date().toISOString(),
-    completedAt: null
-  };
-  orders.push(order);
-  saveOrders(orders);
-  return order;
+    status: ORDER_STATUS.PENDING.value
+  }).select().single();
+  if (error) { console.error(error); return null; }
+  return mapOrder(data);
 }
 
-function getOrderById(id) {
-  const orders = getOrders();
-  return orders.find(o => o.id === id);
+async function getOrderById(id) {
+  const { data, error } = await sb.from('orders').select('*').eq('id', id).maybeSingle();
+  if (error) { console.error(error); return null; }
+  return mapOrder(data);
 }
 
-function updateOrderStatus(id, status) {
-  const orders = getOrders();
-  const order = orders.find(o => o.id === id);
-  if (order) {
-    order.status = status;
-    if (status === ORDER_STATUS.COMPLETED.value) {
-      order.completedAt = new Date().toISOString();
-    }
-    saveOrders(orders);
+async function updateOrderStatus(id, status) {
+  const changes = { status };
+  if (status === ORDER_STATUS.COMPLETED.value) {
+    changes.completed_at = new Date().toISOString();
   }
+  const { data, error } = await sb.from('orders').update(changes).eq('id', id).select().maybeSingle();
+  if (error) { console.error(error); return null; }
+  return mapOrder(data);
 }
 
 // ============================================

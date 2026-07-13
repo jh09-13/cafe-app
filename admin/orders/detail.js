@@ -1,7 +1,7 @@
 const orderId = new URLSearchParams(location.search).get('id');
 
-function renderDetail() {
-  const order = getOrderById(orderId);
+async function renderDetail() {
+  const order = await getOrderById(orderId);
 
   $('#order-detail').innerHTML = `
     <div class="order-head">
@@ -32,15 +32,20 @@ function renderDetail() {
     </div>
   `;
 
-  $('#btn-update-status').addEventListener('click', () => {
-    updateOrderStatus(orderId, $('#f-status').value);
+  $('#btn-update-status').addEventListener('click', async () => {
+    await updateOrderStatus(orderId, $('#f-status').value);
     renderDetail();
   });
 }
 
-if (!orderId || !getOrderById(orderId)) {
-  $('#order-detail').hidden = true;
-  $('#not-found').hidden = false;
-} else {
-  renderDetail();
+async function init() {
+  const order = orderId ? await getOrderById(orderId) : null;
+  if (!order) {
+    $('#order-detail').hidden = true;
+    $('#not-found').hidden = false;
+  } else {
+    renderDetail();
+  }
 }
+
+init();

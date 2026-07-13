@@ -8,8 +8,9 @@ function renderTabs() {
   `);
 }
 
-function renderTable() {
-  const menus = getMenus().filter(m => currentCat === 'all' || m.category === currentCat);
+async function renderTable() {
+  const all = await getMenus();
+  const menus = all.filter(m => currentCat === 'all' || m.category === currentCat);
   const body = $('#menu-table-body');
   const emptyState = $('#empty-state');
 
@@ -32,9 +33,9 @@ function renderTable() {
   emptyState.hidden = menus.length > 0;
 }
 
-function render() {
+async function render() {
   renderTabs();
-  renderTable();
+  await renderTable();
 }
 
 $('#cat-filter-tabs').addEventListener('click', (e) => {
@@ -44,18 +45,18 @@ $('#cat-filter-tabs').addEventListener('click', (e) => {
   render();
 });
 
-$('#menu-table-body').addEventListener('click', (e) => {
+$('#menu-table-body').addEventListener('click', async (e) => {
   const btn = e.target.closest('[data-delete]');
   if (!btn) return;
   if (confirm('이 메뉴를 삭제할까요?')) {
-    removeMenu(btn.dataset.delete);
+    await removeMenu(btn.dataset.delete);
     renderTable();
   }
 });
 
-$('#btn-reset').addEventListener('click', () => {
+$('#btn-reset').addEventListener('click', async () => {
   if (confirm('모든 메뉴를 기본값으로 초기화할까요? 추가/수정한 내용이 사라집니다.')) {
-    resetMenus();
+    await resetMenus();
     currentCat = 'all';
     render();
   }

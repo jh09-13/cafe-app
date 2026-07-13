@@ -8,8 +8,9 @@ function renderTabs() {
   `);
 }
 
-function renderGrid() {
-  const menus = getMenus().filter(m => currentCat === 'all' || m.category === currentCat);
+async function renderGrid() {
+  const all = await getMenus();
+  const menus = all.filter(m => currentCat === 'all' || m.category === currentCat);
   const grid = $('#menu-grid');
   const emptyState = $('#empty-state');
 
@@ -37,9 +38,9 @@ function updateCartBadge() {
   $('#cart-count').textContent = count;
 }
 
-function render() {
+async function render() {
   renderTabs();
-  renderGrid();
+  await renderGrid();
   updateCartBadge();
 }
 
@@ -50,10 +51,10 @@ $('#cat-filter-tabs').addEventListener('click', (e) => {
   render();
 });
 
-$('#menu-grid').addEventListener('click', (e) => {
+$('#menu-grid').addEventListener('click', async (e) => {
   const btn = e.target.closest('[data-add]');
   if (!btn) return;
-  addToCart(btn.dataset.add);
+  await addToCart(btn.dataset.add);
   updateCartBadge();
 });
 
