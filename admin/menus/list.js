@@ -21,8 +21,8 @@ function renderTable() {
       <td>${m.description || ''}</td>
       <td class="col-actions">
         <div class="row-actions">
-          <a class="btn btn-ghost" href="detail.html?id=${m.id}">상세</a>
-          <a class="btn btn-ghost" href="edit.html?id=${m.id}">수정</a>
+          <a class="btn btn-ghost" href="detail?id=${m.id}">상세</a>
+          <a class="btn btn-ghost" href="edit?id=${m.id}">수정</a>
           <button class="btn btn-danger" data-delete="${m.id}">삭제</button>
         </div>
       </td>

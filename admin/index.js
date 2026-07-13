@@ -23,7 +23,7 @@ function render() {
       <td>${o.items.map(i => i.name).join(', ')}</td>
       <td>${formatPrice(o.total)}</td>
       <td><span class="status-badge status-${o.status}">${getStatusLabel(o.status)}</span></td>
-      <td class="col-actions"><a class="btn btn-ghost" href="orders/detail.html?id=${o.id}">상세</a></td>
+      <td class="col-actions"><a class="btn btn-ghost" href="orders/detail?id=${o.id}">상세</a></td>
     </tr>
   `).join('');
 }

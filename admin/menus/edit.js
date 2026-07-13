@@ -22,6 +22,6 @@ if (!menu) {
       description: $('#f-description').value.trim()
     });
 
-    location.href = `detail.html?id=${menu.id}`;
+    location.href = `detail?id=${menu.id}`;
   });
 }

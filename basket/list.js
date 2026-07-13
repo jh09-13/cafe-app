@@ -66,7 +66,7 @@ $('#btn-checkout').addEventListener('click', () => {
 
   const order = createOrder(cart, getCartTotal());
   clearCart();
-  location.href = `../orders/detail.html?id=${order.id}`;
+  location.href = `../orders/detail?id=${order.id}`;
 });
 
 render();

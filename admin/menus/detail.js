@@ -11,7 +11,7 @@ if (!menu) {
     <div class="detail-row"><span class="label">가격</span><span>${formatPrice(menu.price)}</span></div>
     <div class="detail-row"><span class="label">설명</span><span>${menu.description || '-'}</span></div>
     <div class="detail-actions">
-      <a class="btn btn-primary" href="edit.html?id=${menu.id}">수정</a>
+      <a class="btn btn-primary" href="edit?id=${menu.id}">수정</a>
       <button id="btn-delete" class="btn btn-danger">삭제</button>
     </div>
   `;

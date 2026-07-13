@@ -16,7 +16,7 @@ function render() {
   emptyState.hidden = recent.length > 0;
 
   renderList(recentEl, recent, (o) => `
-    <a class="order-card" href="../orders/detail.html?id=${o.id}">
+    <a class="order-card" href="../orders/detail?id=${o.id}">
       <div class="order-card-head">
         <span class="order-date">${formatDate(o.createdAt)}</span>
         <span class="status-badge status-${o.status}">${getStatusLabel(o.status)}</span>
